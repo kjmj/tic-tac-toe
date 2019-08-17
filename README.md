@@ -19,4 +19,19 @@ $ yarn start
 $ yarn generate
 ```
 
+## Code Formatting
+``` bash
+# check linting
+yarn lint
+
+# fix linting
+$ yarn lint --fix
+```
+
+## Tests
+```bash
+# run tests
+$ yarn test
+```
+
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
