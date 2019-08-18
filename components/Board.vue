@@ -25,8 +25,9 @@ export default {
   data() {
     return {
       currPlayer: this.$X,
-      winner: '',
+      numMoves: 0,
       numToWin: 3,
+      winner: '',
       // eslint-disable-next-line prettier/prettier
       boardState: [
         [this.$EMPTY, this.$EMPTY, this.$EMPTY],
@@ -49,11 +50,17 @@ export default {
 
       // mark the move
       Vue.set(self.boardState[rowIndex], colIndex, self.currPlayer)
+      self.numMoves++
 
       // check for winner
       if (self.checkWinner(rowIndex, colIndex)) {
         self.winner = self.currPlayer
         alert(self.winner + ' got 3 in a row')
+      }
+
+      // no winner if the board is full
+      if (self.numMoves === self.numRows * self.numCols) {
+        alert('Board is full, no winner')
       }
 
       // switch player
