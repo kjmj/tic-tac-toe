@@ -65,6 +65,7 @@ export default {
   display: -webkit-flex;
   display: flex;
   -webkit-flex-flow: row;
+  flex-flow: row;
   justify-content: space-around;
   line-height: 30px;
 }
