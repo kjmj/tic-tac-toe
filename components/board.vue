@@ -4,8 +4,9 @@
       <div
         v-for="(col, colIndex) in row"
         :key="`row-${rowIndex}-col-${colIndex}`"
+        :class="{ disabled: boardState[rowIndex][colIndex] !== '' }"
         class="flex-item"
-        @click="onClick(rowIndex, colIndex)"
+        @click="playerMove(rowIndex, colIndex)"
       >
         {{ col }}
       </div>
@@ -29,10 +30,12 @@ export default {
     }
   },
   methods: {
-    onClick(rowIndex, colIndex) {
+    playerMove(rowIndex, colIndex) {
       const self = this
-      Vue.set(self.boardState[rowIndex], colIndex, this.currPlayer)
-
+      if (self.boardState[rowIndex][colIndex] !== '') {
+        return
+      }
+      Vue.set(self.boardState[rowIndex], colIndex, self.currPlayer)
       if (self.currPlayer === 'X') {
         self.currPlayer = '0'
       } else {
@@ -74,14 +77,19 @@ export default {
   min-width: 1.5em;
   cursor: pointer;
 }
+.disabled {
+  pointer-events: none;
+}
 .flex-item:before {
   content: '';
   display: block;
   padding-top: 100%;
   float: left;
 }
-.flex-item:hover {
-  background: #3b8070;
+@media (hover: hover) {
+  .flex-item:hover {
+    background: #3b8070;
+  }
 }
 .flex-item:active {
   background: #35495e;
