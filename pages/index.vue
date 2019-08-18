@@ -10,10 +10,7 @@
       </h2>
       <board></board>
       <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">
-          Documentation
-        </a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">
+        <a href="https://github.com/kjmj/tic-tac-toe/" target="_blank" class="button--green">
           GitHub
         </a>
       </div>
