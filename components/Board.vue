@@ -11,6 +11,7 @@
         {{ col }}
       </div>
     </div>
+    <button class="button--grey" @click="resetGame">Reset Game</button>
   </div>
 </template>
 
@@ -105,6 +106,9 @@ export default {
         }
       }
       return false
+    },
+    resetGame() {
+      Object.assign(this.$data, this.$options.data.apply(this))
     }
   }
 }
