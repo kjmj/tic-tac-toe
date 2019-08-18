@@ -4,7 +4,7 @@
       <div
         v-for="(col, colIndex) in row"
         :key="`row-${rowIndex}-col-${colIndex}`"
-        :class="{ disabled: boardState[rowIndex][colIndex] !== '' }"
+        :class="{ disabled: boardState[rowIndex][colIndex] !== $EMPTY }"
         class="flex-item"
         @click="playerMove(rowIndex, colIndex)"
       >
@@ -16,30 +16,34 @@
 
 <script>
 import Vue from 'vue'
+Vue.prototype.$EMPTY = ''
+Vue.prototype.$X = 'X'
+Vue.prototype.$0 = '0'
+
 export default {
   name: 'Board',
   data() {
     return {
-      currPlayer: 'X',
+      currPlayer: this.$X,
       // eslint-disable-next-line prettier/prettier
       boardState: [
-        ['', '', ''],
-        ['', '', ''],
-        ['', '', '']
+        [this.$EMPTY, this.$EMPTY, this.$EMPTY],
+        [this.$EMPTY, this.$EMPTY, this.$EMPTY],
+        [this.$EMPTY, this.$EMPTY, this.$EMPTY]
       ]
     }
   },
   methods: {
     playerMove(rowIndex, colIndex) {
       const self = this
-      if (self.boardState[rowIndex][colIndex] !== '') {
+      if (self.boardState[rowIndex][colIndex] !== self.$EMPTY) {
         return
       }
       Vue.set(self.boardState[rowIndex], colIndex, self.currPlayer)
-      if (self.currPlayer === 'X') {
-        self.currPlayer = '0'
+      if (self.currPlayer === self.$X) {
+        self.currPlayer = self.$0
       } else {
-        self.currPlayer = 'X'
+        self.currPlayer = self.$X
       }
     }
   }
