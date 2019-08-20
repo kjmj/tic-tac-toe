@@ -43,6 +43,9 @@ export default {
     },
     numCols() {
       return this.boardState[0].length
+    },
+    gridSize() {
+      return this.numRows * this.numCols
     }
   },
   methods: {
@@ -61,7 +64,7 @@ export default {
       }
 
       // no winner if the board is full
-      if (self.winner === null && self.numMoves === self.numRows * self.numCols) {
+      if (self.winner === null && self.numMoves === self.gridSize) {
         alert('Board is full, no winner')
       }
 

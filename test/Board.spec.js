@@ -45,6 +45,46 @@ describe('Board', () => {
   })
 })
 
+// numColumns
+describe('Board', () => {
+  test('number of columns is correct', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
+    ]
+    const wrapper = board({ boardState: b })
+    expect(wrapper.vm.numCols).toEqual(3)
+  })
+})
+
+// numRows
+describe('Board', () => {
+  test('number of rows is correct', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['', '', ''],
+      ['', '', '']
+    ]
+    const wrapper = board({ boardState: b })
+    expect(wrapper.vm.numRows).toEqual(2)
+  })
+})
+
+// gridSize
+describe('Board', () => {
+  test('grid size is correct', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['', '', ''],
+      ['', '', '']
+    ]
+    const wrapper = board({ boardState: b })
+    expect(wrapper.vm.gridSize).toEqual(6)
+  })
+})
+
 // checkWinner()
 describe('Board', () => {
   test('says no winner on empty board', () => {
