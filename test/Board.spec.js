@@ -35,7 +35,48 @@ describe('Board', () => {
 
   test('has a 3x3 board filled with blanks', () => {
     const wrapper = board()
-    const emptyBoard = [['', '', ''], ['', '', ''], ['', '', '']]
+    // eslint-disable-next-line prettier/prettier
+    const emptyBoard = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
+    ]
     expect(wrapper.vm.boardState).toEqual(emptyBoard)
+  })
+})
+
+// checkWinner()
+describe('Board', () => {
+  test('says there is no winner on empty board', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
+    ]
+    const wrapper = board({ boardState: b, numToWin: 3 })
+    expect(wrapper.vm.checkWinner(0, 0)).toBeFalsy()
+  })
+
+  test('says X wins', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['X', 'X', 'X'],
+      ['', '0', '0'],
+      ['', '', '']
+    ]    
+    const wrapper = board({ boardState: b, numToWin: 3 })
+    expect(wrapper.vm.checkWinner(0, 0)).toBeTruthy()
+  })
+
+  test('says there is no winner when board is full', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['X', '0', 'X'],
+      ['0', 'X', 'X'],
+      ['0', 'X', '0']
+    ]    
+    const wrapper = board({ boardState: b, numToWin: 3 })
+    expect(wrapper.vm.checkWinner(0, 0)).toBeFalsy()
   })
 })
