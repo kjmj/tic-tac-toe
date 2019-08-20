@@ -79,4 +79,16 @@ describe('Board', () => {
     const wrapper = board({ boardState: b, numToWin: 3 })
     expect(wrapper.vm.checkWinner(0, 0)).toBeFalsy()
   })
+
+  test('winner on 1x1 edge case board', () => {
+    const b = [['X']]
+    const wrapper = board({ boardState: b, numToWin: 1 })
+    expect(wrapper.vm.checkWinner(0, 0)).toBeTruthy()
+  })
+
+  test('no winner on empty 1x1 edge case board', () => {
+    const b = [['']]
+    const wrapper = board({ boardState: b, numToWin: 1 })
+    expect(wrapper.vm.checkWinner(0, 0)).toBeFalsy()
+  })
 })

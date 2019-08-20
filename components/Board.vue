@@ -56,11 +56,11 @@ export default {
       // check for winner
       if (self.checkWinner(rowIndex, colIndex)) {
         self.winner = self.currPlayer
-        alert(self.winner + ' got 3 in a row')
+        alert(self.winner + ' got ' + self.numToWin + ' in a row')
       }
 
       // no winner if the board is full
-      if (self.numMoves === self.numRows * self.numCols) {
+      if (self.winner === '' && self.numMoves === self.numRows * self.numCols) {
         alert('Board is full, no winner')
       }
 
@@ -77,9 +77,16 @@ export default {
       const numToWin = self.numToWin
       const currPlayer = self.currPlayer
       const count = { col: 1, row: 1, diag: 1, rdiag: 1 }
+      const currRow = self.boardState[rowIndex]
+      let isCellCurrPlayer = false
+
+      // check that we are checking winner on the current player
+      if (currRow[colIndex] === currPlayer) {
+        isCellCurrPlayer = true
+      }
+
       // check if there is a win in all directions
-      for (let i = 1; i < numToWin; i++) {
-        const currRow = self.boardState[rowIndex]
+      for (let i = 1; i <= numToWin; i++) {
         const rowAbove = self.boardState[rowIndex - i]
         const rowBelow = self.boardState[rowIndex + i]
 
@@ -101,7 +108,10 @@ export default {
         }
 
         // there was a winner
-        if (count.col === numToWin || count.row === numToWin || count.diag === numToWin || count.rdiag === numToWin) {
+        if (
+          isCellCurrPlayer &&
+          (count.col === numToWin || count.row === numToWin || count.diag === numToWin || count.rdiag === numToWin)
+        ) {
           return true
         }
       }
