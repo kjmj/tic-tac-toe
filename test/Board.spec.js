@@ -30,7 +30,7 @@ describe('Board', () => {
 
   test('has no winner on start', () => {
     const wrapper = board()
-    expect(wrapper.vm.winner).toEqual('')
+    expect(wrapper.vm.winner).toEqual(null)
   })
 
   test('has a 3x3 board filled with blanks', () => {
@@ -47,7 +47,7 @@ describe('Board', () => {
 
 // checkWinner()
 describe('Board', () => {
-  test('says there is no winner on empty board', () => {
+  test('says no winner on empty board', () => {
     // eslint-disable-next-line prettier/prettier
     const b = [
       ['', '', ''],
@@ -55,7 +55,7 @@ describe('Board', () => {
       ['', '', '']
     ]
     const wrapper = board({ boardState: b, numToWin: 3 })
-    expect(wrapper.vm.checkWinner(0, 0)).toBeFalsy()
+    expect(wrapper.vm.checkWinner(0, 0)).toEqual(null)
   })
 
   test('says X wins', () => {
@@ -66,10 +66,10 @@ describe('Board', () => {
       ['', '', '']
     ]    
     const wrapper = board({ boardState: b, numToWin: 3 })
-    expect(wrapper.vm.checkWinner(0, 0)).toBeTruthy()
+    expect(wrapper.vm.checkWinner(0, 0)).toEqual('X')
   })
 
-  test('says there is no winner when board is full', () => {
+  test('says no winner when board is full', () => {
     // eslint-disable-next-line prettier/prettier
     const b = [
       ['X', '0', 'X'],
@@ -77,18 +77,18 @@ describe('Board', () => {
       ['0', 'X', '0']
     ]    
     const wrapper = board({ boardState: b, numToWin: 3 })
-    expect(wrapper.vm.checkWinner(0, 0)).toBeFalsy()
+    expect(wrapper.vm.checkWinner(0, 0)).toEqual(null)
   })
 
-  test('winner on 1x1 edge case board', () => {
-    const b = [['X']]
+  test('says 0 wins on 1x1 edge case board', () => {
+    const b = [['0']]
     const wrapper = board({ boardState: b, numToWin: 1 })
-    expect(wrapper.vm.checkWinner(0, 0)).toBeTruthy()
+    expect(wrapper.vm.checkWinner(0, 0)).toEqual('0')
   })
 
-  test('no winner on empty 1x1 edge case board', () => {
+  test('says no winner on empty 1x1 edge case board', () => {
     const b = [['']]
     const wrapper = board({ boardState: b, numToWin: 1 })
-    expect(wrapper.vm.checkWinner(0, 0)).toBeFalsy()
+    expect(wrapper.vm.checkWinner(0, 0)).toEqual(null)
   })
 })

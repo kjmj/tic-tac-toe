@@ -28,7 +28,7 @@ export default {
       currPlayer: this.$X,
       numMoves: 0,
       numToWin: 3,
-      winner: '',
+      winner: null,
       // eslint-disable-next-line prettier/prettier
       boardState: [
         [this.$EMPTY, this.$EMPTY, this.$EMPTY],
@@ -54,13 +54,14 @@ export default {
       self.numMoves++
 
       // check for winner
-      if (self.checkWinner(rowIndex, colIndex)) {
-        self.winner = self.currPlayer
+      const winner = self.checkWinner(rowIndex, colIndex)
+      if (winner !== null) {
+        self.winner = winner
         alert(self.winner + ' got ' + self.numToWin + ' in a row')
       }
 
       // no winner if the board is full
-      if (self.winner === '' && self.numMoves === self.numRows * self.numCols) {
+      if (self.winner === null && self.numMoves === self.numRows * self.numCols) {
         alert('Board is full, no winner')
       }
 
@@ -71,18 +72,17 @@ export default {
         self.currPlayer = self.$X
       }
     },
-    // true if there is a winner on this turn, false otherwise
+    // returns the winner, if there is one. otherwise, returns null
     checkWinner(rowIndex, colIndex) {
       const self = this
       const numToWin = self.numToWin
-      const currPlayer = self.currPlayer
       const count = { col: 1, row: 1, diag: 1, rdiag: 1 }
       const currRow = self.boardState[rowIndex]
-      let isCellCurrPlayer = false
+      const thisPlayer = currRow[colIndex]
 
-      // check that we are checking winner on the current player
-      if (currRow[colIndex] === currPlayer) {
-        isCellCurrPlayer = true
+      // empty space cant win the game
+      if (thisPlayer === self.$EMPTY) {
+        return null
       }
 
       // check if there is a win in all directions
@@ -91,31 +91,28 @@ export default {
         const rowBelow = self.boardState[rowIndex + i]
 
         // check right, left
-        if (currRow[colIndex + i] === currPlayer || currRow[colIndex - i] === currPlayer) {
+        if (currRow[colIndex + i] === thisPlayer || currRow[colIndex - i] === thisPlayer) {
           count.row++
         }
         // check top, top left, top right
         if (rowAbove !== undefined) {
-          if (rowAbove[colIndex] === currPlayer) count.col++
-          if (rowAbove[colIndex - i] === currPlayer) count.diag++
-          if (rowAbove[colIndex + i] === currPlayer) count.rdiag++
+          if (rowAbove[colIndex] === thisPlayer) count.col++
+          if (rowAbove[colIndex - i] === thisPlayer) count.diag++
+          if (rowAbove[colIndex + i] === thisPlayer) count.rdiag++
         }
         // check bottom, bottom left, bottom right
         if (rowBelow !== undefined) {
-          if (rowBelow[colIndex] === currPlayer) count.col++
-          if (rowBelow[colIndex - i] === currPlayer) count.rdiag++
-          if (rowBelow[colIndex + i] === currPlayer) count.diag++
+          if (rowBelow[colIndex] === thisPlayer) count.col++
+          if (rowBelow[colIndex - i] === thisPlayer) count.rdiag++
+          if (rowBelow[colIndex + i] === thisPlayer) count.diag++
         }
 
         // there was a winner
-        if (
-          isCellCurrPlayer &&
-          (count.col === numToWin || count.row === numToWin || count.diag === numToWin || count.rdiag === numToWin)
-        ) {
-          return true
+        if (count.col === numToWin || count.row === numToWin || count.diag === numToWin || count.rdiag === numToWin) {
+          return thisPlayer
         }
       }
-      return false
+      return null
     },
     resetGame() {
       Object.assign(this.$data, this.$options.data.apply(this))
