@@ -45,6 +45,65 @@ describe('Board', () => {
   })
 })
 
+// playerMove()
+describe('Board', () => {
+  test('player move marks the move on the board', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
+    ]
+    const wrapper = board({ boardState: b, currPlayer: 'X' })
+    wrapper.vm.playerMove(0, 0)
+    expect(wrapper.vm.boardState[0][0]).toEqual('X')
+  })
+
+  test('player move sets winner if there is one', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['', 'X', 'X'],
+      ['', '0', '0'],
+      ['', '', '']
+    ]
+    const wrapper = board({ boardState: b, currPlayer: '0' })
+    wrapper.vm.playerMove(1, 0)
+    expect(wrapper.vm.winner).toEqual('0')
+  })
+
+  test('player move doesnt set winner if there isnt one', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['', 'X', 'X'],
+      ['', '0', '0'],
+      ['', '', '']
+    ]
+    const wrapper = board({ boardState: b, currPlayer: '0' })
+    wrapper.vm.playerMove(2, 0)
+    expect(wrapper.vm.winner).toEqual(null)
+  })
+
+  test('player move says there is no winner when the board is full', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['0', 'X', 'X'],
+      ['', '0', '0'],
+      ['X', '0', 'X']
+    ]
+    const wrapper = board({ boardState: b, currPlayer: 'X' })
+    wrapper.vm.playerMove(1, 0)
+    expect(wrapper.vm.winner).toEqual(null)
+  })
+
+  test('player move switches player after turn', () => {
+    const wrapper = board({ currPlayer: 'X' })
+    wrapper.vm.playerMove(0, 0)
+    expect(wrapper.vm.currPlayer).toEqual('0')
+    wrapper.vm.playerMove(0, 1)
+    expect(wrapper.vm.currPlayer).toEqual('X')
+  })
+})
+
 // numColumns
 describe('Board', () => {
   test('number of columns is correct', () => {
@@ -130,5 +189,20 @@ describe('Board', () => {
     const b = [['']]
     const wrapper = board({ boardState: b, numToWin: 1 })
     expect(wrapper.vm.checkWinner(0, 0)).toEqual(null)
+  })
+})
+
+// reset game
+describe('Board', () => {
+  test('is reset properly after mutation', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['X', '0', 'X'],
+      ['X', '0', '0'],
+      ['X', '', '']
+    ]
+    const wrapper = board({ boardState: b, currPlayer: '0', winner: 'X' })
+    wrapper.vm.resetGame()
+    expect(wrapper).toEqual(board())
   })
 })
