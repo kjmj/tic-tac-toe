@@ -5,7 +5,7 @@
       <div
         v-for="(col, colIndex) in row"
         :key="`row-${rowIndex}-col-${colIndex}`"
-        :class="{ disabled: boardState[rowIndex][colIndex] !== $EMPTY }"
+        :class="{ disabled: boardState[rowIndex][colIndex] !== $EMPTY || winner !== null }"
         class="flex-item"
         @click="playerMove(rowIndex, colIndex)"
       >
