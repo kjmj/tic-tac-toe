@@ -6,7 +6,10 @@
         tic tac toe
       </h1>
       <h2 class="subtitle">
-        An implementation of tic tac toe to learn vue.js
+        An implementation of tic tac toe to learn
+        <a href="https://vuejs.org/" target="_blank">vue</a>, <a href="https://nuxtjs.org/" target="_blank">nuxt</a>,
+        and
+        <a href="https://jestjs.io/" target="_blank">jest</a>
       </h2>
       <board></board>
       <div class="links">
