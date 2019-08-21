@@ -71,6 +71,18 @@ describe('Board', () => {
     expect(wrapper.vm.winner).toEqual('0')
   })
 
+  test('player move sets message if there is a winner', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['', 'X', 'X'],
+      ['', '0', '0'],
+      ['', '', '']
+    ]
+    const wrapper = board({ boardState: b, currPlayer: '0' })
+    wrapper.vm.playerMove(1, 0)
+    expect(wrapper.html()).toContain('<section class="message">0 won!</section>')
+  })
+
   test('player move doesnt set winner if there isnt one', () => {
     // eslint-disable-next-line prettier/prettier
     const b = [
@@ -83,6 +95,18 @@ describe('Board', () => {
     expect(wrapper.vm.winner).toEqual(null)
   })
 
+  test('player move doesnt set message if there is no winner', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['', 'X', 'X'],
+      ['', '0', '0'],
+      ['', '', '']
+    ]
+    const wrapper = board({ boardState: b, currPlayer: '0' })
+    wrapper.vm.playerMove(2, 0)
+    expect(wrapper.html()).not.toContain('<section class="message"></section>')
+  })
+
   test('player move says there is no winner when the board is full', () => {
     // eslint-disable-next-line prettier/prettier
     const b = [
@@ -93,6 +117,18 @@ describe('Board', () => {
     const wrapper = board({ boardState: b, currPlayer: 'X' })
     wrapper.vm.playerMove(1, 0)
     expect(wrapper.vm.winner).toEqual(null)
+  })
+
+  test('player move sets message saying there is no winner after board is full', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['0', 'X', 'X'],
+      ['', '0', '0'],
+      ['X', '0', 'X']
+    ]
+    const wrapper = board({ boardState: b, currPlayer: 'X' })
+    wrapper.vm.playerMove(1, 0)
+    expect(wrapper.html()).not.toContain('<section class="message">Board is full!</section>')
   })
 
   test('player move switches player after turn', () => {
@@ -189,6 +225,18 @@ describe('Board', () => {
     const b = [['']]
     const wrapper = board({ boardState: b, numToWin: 1 })
     expect(wrapper.vm.checkWinner(0, 0)).toEqual(null)
+  })
+})
+
+// toggleMessageShow()
+describe('Board', () => {
+  test('toggleMessageShow() correctly toggles message show/hide', () => {
+    const wrapper = board()
+    wrapper.vm.message = 'Hello'
+    expect(wrapper.html()).not.toContain('<section class="message">Hello</section>')
+
+    wrapper.vm.toggleMessageShow()
+    expect(wrapper.html()).toContain('<section class="message">Hello</section>')
   })
 })
 

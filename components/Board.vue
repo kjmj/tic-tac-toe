@@ -1,5 +1,6 @@
 <template>
   <div class="content">
+    <section v-if="isMessageShowing" class="message">{{ message }}</section>
     <div v-for="(row, rowIndex) in boardState" :key="`row-${rowIndex}`" class="flex-container">
       <div
         v-for="(col, colIndex) in row"
@@ -29,6 +30,8 @@ export default {
       numMoves: 0,
       numToWin: 3,
       winner: null,
+      message: '',
+      isMessageShowing: false,
       // eslint-disable-next-line prettier/prettier
       boardState: [
         [this.$EMPTY, this.$EMPTY, this.$EMPTY],
@@ -49,6 +52,9 @@ export default {
     }
   },
   methods: {
+    toggleMessageShow() {
+      this.isMessageShowing = !this.isMessageShowing
+    },
     playerMove(rowIndex, colIndex) {
       const self = this
 
@@ -60,12 +66,14 @@ export default {
       const winner = self.checkWinner(rowIndex, colIndex)
       if (winner !== null) {
         self.winner = winner
-        alert(self.winner + ' got ' + self.numToWin + ' in a row')
+        self.message = self.winner + ' won!'
+        self.toggleMessageShow()
       }
 
       // no winner if the board is full
       if (self.winner === null && self.numMoves === self.gridSize) {
-        alert('Board is full, no winner')
+        self.message = 'Board is full!'
+        self.toggleMessageShow()
       }
 
       // switch player
@@ -128,6 +136,9 @@ export default {
 .content {
   width: 15.45em;
   margin: 0 auto;
+  padding: 5px;
+  border: 1px solid #3b8070;
+  border-radius: 5px;
 }
 .flex-container {
   padding: 0;
@@ -172,5 +183,39 @@ export default {
 }
 .flex-item:active {
   background: #35495e;
+}
+.message {
+  font-size: 2rem;
+  color: #35495e;
+  text-align: center;
+  -webkit-animation: bounceInUp 0.5s;
+  animation: bounceInUp 0.5s;
+  z-index: 1;
+}
+@keyframes bounceInUp {
+  0%,
+  60%,
+  75%,
+  90%,
+  100% {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 3000px, 0);
+  }
+  60% {
+    opacity: 1;
+    transform: translate3d(0, -20px, 0);
+  }
+  75% {
+    transform: translate3d(0, 10px, 0);
+  }
+  90% {
+    transform: translate3d(0, -5px, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 </style>
