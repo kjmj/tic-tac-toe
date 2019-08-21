@@ -134,7 +134,7 @@ export default {
 
 <style scoped>
 .content {
-  width: 15.45em;
+  width: 22.5em;
   margin: 0 auto;
   padding: 5px;
   border: 1px solid #3b8070;
