@@ -62,13 +62,25 @@ describe('Board', () => {
   test('player move sets winner if there is one', () => {
     // eslint-disable-next-line prettier/prettier
     const b = [
-      ['', 'X', 'X'],
-      ['', '0', '0'],
-      ['', '', '']
+      ['X', '0', 'X'],
+      ['', '', ''],
+      ['0', '0', 'X']
     ]
     const wrapper = board({ boardState: b, currPlayer: '0' })
-    wrapper.vm.playerMove(1, 0)
+    wrapper.vm.playerMove(1, 1)
     expect(wrapper.vm.winner).toEqual('0')
+  })
+
+  test('player move sets winner if there is one test 2', () => {
+    // eslint-disable-next-line prettier/prettier
+    const b = [
+      ['X', '0', '0'],
+      ['0', '', 'X'],
+      ['0', 'X', 'X']
+    ]
+    const wrapper = board({ boardState: b, currPlayer: 'X' })
+    wrapper.vm.playerMove(1, 1)
+    expect(wrapper.vm.winner).toEqual('X')
   })
 
   test('player move sets message if there is a winner', () => {
@@ -114,7 +126,7 @@ describe('Board', () => {
       ['', '0', '0'],
       ['X', '0', 'X']
     ]
-    const wrapper = board({ boardState: b, currPlayer: 'X' })
+    const wrapper = board({ boardState: b, currPlayer: 'X', numMoves: 8 })
     wrapper.vm.playerMove(1, 0)
     expect(wrapper.vm.winner).toEqual(null)
   })
@@ -126,9 +138,9 @@ describe('Board', () => {
       ['', '0', '0'],
       ['X', '0', 'X']
     ]
-    const wrapper = board({ boardState: b, currPlayer: 'X' })
+    const wrapper = board({ boardState: b, currPlayer: 'X', numMoves: 8 })
     wrapper.vm.playerMove(1, 0)
-    expect(wrapper.html()).not.toContain('<section class="message">Board is full!</section>')
+    expect(wrapper.html()).toContain('<section class="message">Board is full!</section>')
   })
 
   test('player move switches player after turn', () => {

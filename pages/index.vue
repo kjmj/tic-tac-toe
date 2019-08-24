@@ -2,9 +2,7 @@
   <div class="container">
     <div>
       <logo />
-      <h1 class="title">
-        tic tac toe
-      </h1>
+      <h1 class="title">tic tac toe</h1>
       <h2 class="subtitle">
         An implementation of tic tac toe to learn
         <a href="https://vuejs.org/" target="_blank">vue</a>, <a href="https://nuxtjs.org/" target="_blank">nuxt</a>,
