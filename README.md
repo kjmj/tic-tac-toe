@@ -34,4 +34,13 @@ $ yarn lint --fix
 $ yarn test
 ```
 
+## Deployment
+```bash
+# generate static application
+$ yarn generate:gh-pages
+
+# deploy to github pages
+$ yarn deploy
+```
+
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
