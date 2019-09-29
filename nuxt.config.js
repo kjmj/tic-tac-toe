@@ -5,7 +5,7 @@ const routerBase =
   process.env.DEPLOY_ENV === 'GH_PAGES'
     ? {
         router: {
-          base: '/tic-tac-toe/'
+          base: '/<repository-name>/'
         }
       }
     : {}
