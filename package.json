@@ -11,14 +11,13 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "test": "jest",
-    "build:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt build",
-    "generate:gh-pages": "DEPLOY_ENV=GH_PAGES nuxt generate",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist --dotfiles=true -m \"Github Pages Deployment - $(date)\""
   },
   "homepage": "https://kjmj.github.io/tic-tac-toe/",
   "dependencies": {
     "gh-pages": "^2.1.1",
     "nuxt": "^2.0.0",
+    "push-dir": "^0.4.1",
     "vue-slider-component": "^3.0.40"
   },
   "devDependencies": {
