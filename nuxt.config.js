@@ -8,9 +8,7 @@ const routerBase =
           base: '/tic-tac-toe/'
         }
       }
-    : {
-        router: {}
-      }
+    : {}
 
 export default {
   mode: 'universal',
@@ -34,7 +32,7 @@ export default {
   /*
    ** Since the site is deployed on GitHub pages, we need to give a router base
    */
-  router: routerBase.router,
+  ...routerBase,
   /*
    ** Customize the progress-bar color
    */
