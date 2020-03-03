@@ -40,6 +40,6 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 ```bash
 # generate files and deploy to the gh-pages branch
 # project is published here https://kjmj.github.io/tic-tac-toe/
-$ yarn generate
+$ yarn generate:gh-pages
 $ yarn deploy
 ```
