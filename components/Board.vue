@@ -6,13 +6,13 @@
         v-for="(col, colIndex) in row"
         :key="`row-${rowIndex}-col-${colIndex}`"
         :class="{ disabled: boardState[rowIndex][colIndex] !== $EMPTY || winner !== null }"
-        class="flex-item"
         @click="playerMove(rowIndex, colIndex)"
+        class="flex-item"
       >
         {{ col }}
       </div>
     </div>
-    <button class="button--grey" @click="resetGame">Reset Game</button>
+    <button @click="resetGame" class="button--grey">Reset Game</button>
   </div>
 </template>
 
