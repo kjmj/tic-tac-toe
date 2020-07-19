@@ -17,6 +17,7 @@
   },
   "homepage": "https://kjmj.github.io/tic-tac-toe/",
   "dependencies": {
+    "core-js": "^2",
     "cross-env": "^7.0.0",
     "gh-pages": "^2.1.1",
     "nuxt": "^2.0.0",
